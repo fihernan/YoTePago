@@ -1,0 +1,33 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to "YoTePago.cl", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav pull-right">
+          <% if signed_in? %>
+              <% if current_user.idTipoUsuario == 2 %>
+                  <li><%= link_to "Inicio", current_user %></li>
+              <% elsif current_user.idTipoUsuario == 1 %>
+                  <li><%= link_to "Usuarios", users_path %></li>
+              <% end %>
+              <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Cuenta <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Perfil", edit_user_path(current_user) %></li>
+                  <li><%= link_to "Settings", '#' %></li>
+                  <li class="divider"></li>
+                  <li><%= link_to "Salir", signout_path, method: "delete" %></li>
+                </ul>
+              </li>
+          <% else %>
+              <li><%= link_to "Inicio", root_path %></li>
+              <li><%= link_to "Funcionamiento", help_path %></li>
+              <li><%= link_to "Ingresar", signin_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

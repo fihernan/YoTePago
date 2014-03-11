@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Rails YoTePago: development" uuid="9f4f432a-a62e-4c9a-99f9-4e7aacb2307d">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails YoTePago: test" uuid="61f3ecf2-10df-48f4-b2f9-2c3bf8be932e">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Rails YoTePago: production" uuid="62aee13d-268d-45b4-ae90-f7ab6715921c">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
