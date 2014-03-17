@@ -19,7 +19,7 @@
     <data-source source="LOCAL" name="Rails YoTePago: production" uuid="62aee13d-268d-45b4-ae90-f7ab6715921c">
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://ec2-23-21-101-129.compute-1.amazonaws.com/heroku_410bb86f7028874</jdbc-url>
+      <jdbc-url>jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_410bb86f7028874</jdbc-url>
       <user-name>bc3cffc6d886d8</user-name>
       <user-password>df9bdf9cdf9edf9bdfc9df98df99df9f</user-password>
       <libraries />
