@@ -30,10 +30,10 @@ test:
   host: localhost
 
 production:
-  adapter: postgresql
+  adapter: mysql2
   encoding: utf8
-  database: d5cop4idkfjp3n
+  database: heroku_410bb86f7028874
   pool: 5
-  username: qmpjkkbnakffht
-  password: bsFoKBzF60ITGh-S_0kBB7uPJk
-  host: ec2-23-21-101-129.compute-1.amazonaws.com
+  username: bc3cffc6d886d8
+  password: 1641c235
+  host: us-cdbr-east-05.cleardb.net

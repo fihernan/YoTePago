@@ -19,9 +19,9 @@
     <data-source source="LOCAL" name="Rails YoTePago: production" uuid="62aee13d-268d-45b4-ae90-f7ab6715921c">
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://ec2-23-21-101-129.compute-1.amazonaws.com/d5cop4idkfjp3n</jdbc-url>
-      <user-name>qmpjkkbnakffht</user-name>
-      <user-password>dfc8dfd9dfecdfc5dfe1dfe8dfd0dfecdf9cdf9adfe3dffedfeddfc2df87dff9dff5df9adfc1dfe8dfe8df9ddfdfdffadfe0dfc1</user-password>
+      <jdbc-url>jdbc:mysql://ec2-23-21-101-129.compute-1.amazonaws.com/heroku_410bb86f7028874</jdbc-url>
+      <user-name>bc3cffc6d886d8</user-name>
+      <user-password>df9bdf9cdf9edf9bdfc9df98df99df9f</user-password>
       <libraries />
     </data-source>
   </component>
