@@ -30,10 +30,10 @@ test:
   host: localhost
 
 production:
-  adapter: mysql2
+  adapter: pg
   encoding: utf8
-  database: YoTePago_production
+  database: d5cop4idkfjp3n
   pool: 5
-  username: root
-  password:
-  host: localhost
+  username: qmpjkkbnakffht
+  password: bsFoKBzF60ITGh-S_0kBB7uPJk
+  host: ec2-23-21-101-129.compute-1.amazonaws.com
