@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '1.9.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
@@ -8,7 +9,9 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
 # Use mysql as the database for Active Record
-gem 'mysql2'
+group :development do
+  gem 'mysql2'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -49,3 +52,7 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+group :production do
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
+end
