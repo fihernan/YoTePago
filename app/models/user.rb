@@ -1,15 +1,26 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :nombre, :password, :password_confirmation, :rut, :idTipoUsuario
+  has_many :assignations ,  foreign_key: "idUsuario", dependent: :destroy
+  has_many :advertisings, through: :assignations
+  belongs_to :advertising
+
+  attr_accessible :email, :password, :password_confirmation, :rut, :idTipoUsuario, :nombre, :apellido1, :apellido2,
+                  :idComuna, :edad
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
-  validates :nombre, presence: true, length: { maximum: 50 }
-  validates :rut, presence: true,uniqueness: { case_sensitive: false }
+  VALID_RUT_REGEX = /\A(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(k|\d{1})\Z/i
+  validates :rut, presence: {message:"obligatorio"},format: { with: VALID_RUT_REGEX, message:"no valido" },
+            uniqueness: { case_sensitive: false, message:"ya existe en el sistema" }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
+  validates :email, presence: {message:"obligatorio"}, format: { with: VALID_EMAIL_REGEX, message:"no valido" },
             uniqueness: { case_sensitive: false }
-  has_secure_password
-  validates :password, length: { minimum: 6 }
+  has_secure_password validations: false
+  validates :password, length: { minimum: 6, message:"debe tener largo minimo de 6" }
+  validates_confirmation_of  :password, message: 'debe coincidir'
+  validates :nombre, presence: {message:"obligatorio"},:on => :update
+  validates :apellido1, presence: {message:"obligatorio"},:on => :update
+  validates :idComuna, presence: {message:"obligatorio"},:on => :update
 
   def self.autenticar_por_rut(rut, password)
     user = find_by_rut(rut)

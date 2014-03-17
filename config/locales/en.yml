@@ -20,3 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    attributes:
+      user:
+        apellido1: "Primer apellido"
+        apellido2: "Segundo apellido"
+        idComuna: "Pais/Ciudad/Comuna"

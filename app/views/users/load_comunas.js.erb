@@ -1,0 +1,6 @@
+$('#Comuna_idcomuna').empty();
+$('#Comuna_idcomuna').append( $('<option>Selecciona una comuna</option>'));
+<% @comunas.each do |comuna| %>
+$('#Comuna_idcomuna').append($('<option value="<%= comuna.idcomuna %>"><%= comuna.nombre %></option>'));
+<% end %>
+$('#comuna').slideDown()

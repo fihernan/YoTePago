@@ -1,0 +1,6 @@
+$('#Ciudad_idciudad').empty();
+$('#Ciudad_idciudad').append( $('<option>Selecciona una ciudad</option>'));
+<% @ciudades.each do |ciudad| %>
+$('#Ciudad_idciudad').append($('<option value="<%= ciudad.idciudad %>"><%= ciudad.nombre %></option>'));
+<% end %>
+$('#ciudad').slideDown()

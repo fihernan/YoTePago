@@ -1,16 +1,49 @@
-<% provide(:title, "Edit user") %>
+<% provide(:title, "Perfil") %>
 <h1>Actualiza tu informaci&oacute;n</h1>
 
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
-        <%= render 'shared/error_messages' %>
+        <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.label :nombre %>
         <%= f.text_field :nombre %>
 
+        <%= f.label :primer_Apellido %>
+        <%= f.text_field :apellido1 %>
+
+        <%= f.label :segundo_Apellido %>
+        <%= f.text_field :apellido2 %>
+
         <%= f.label :email %>
         <%= f.text_field :email %>
+
+        <%= f.label :sexo %>
+        <div class="sexo">
+            <%= f.label :hombre %>
+            <%= f.radio_button :sexo, 0 %>
+            <%= f.label :mujer %>
+            <%= f.radio_button :sexo, 1 %>
+        </div>
+
+        <div class="select_date">
+            <%= f.label :fecha_de_nacimiento %>
+            <%= f.date_select(:edad,options ={:start_year => 1920,:order => [:day, :month, :year],:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']}) %>
+        </div>
+        <%= f.label :pais %>
+        <div id ="pais">
+            <%= collection_select(:Pais, :idpais, @pais, :idpais, :nombre, options ={:prompt => "Selecciona un pais",:selected => @sel_pais}) %>
+        </div>
+
+        <div id ="ciudad">
+            <%= f.label :ciudad %>
+            <%= collection_select(:Ciudad, :idciudad, @ciudad, :idciudad, :nombre, options ={:prompt => "Selecciona una ciudad",:selected => @sel_ciudad}) %>
+        </div>
+
+        <div id ="comuna">
+            <%= f.label :comuna %>
+            <%= collection_select(:Comuna, :idcomuna, @comuna, :idcomuna, :nombre, options ={:prompt => "Selecciona una comuna",:selected => @sel_comuna}) %>
+        </div>
 
         <%= f.label :password %>
         <%= f.password_field :password %>

@@ -2,6 +2,6 @@
   <%= link_to user.nombre, user %>
   <% if current_user.idTipoUsuario == 1 && !current_user?(user) %>
       | <%= link_to "delete", user, method: :delete,
-                    data: { confirm: "Esta seguro de elimnar al usuario?" } %>
+                    data: { confirm: "Esta seguro de eliminar al usuario?" } %>
   <% end %>
 </li>
