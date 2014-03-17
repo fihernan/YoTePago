@@ -30,7 +30,7 @@ test:
   host: localhost
 
 production:
-  adapter: pg
+  adapter: postgresql
   encoding: utf8
   database: d5cop4idkfjp3n
   pool: 5
