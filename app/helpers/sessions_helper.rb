@@ -37,6 +37,12 @@ module SessionsHelper
     end
   end
 
+  def admin_user
+    if current_user.idTipoUsuario != 1
+      redirect_to(root_url)
+    end
+  end
+
   def sign_out
     current_user.update_attribute(:remember_token,
                                   User.hash(User.new_remember_token))

@@ -7,8 +7,16 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def new_cliente
+    @user = User.new
+  end
+
   def index
-    @users = User.paginate(page: params[:page], per_page:10)
+    @users = User.where("idTipoUsuario = ?", 2).paginate(page: params[:page], per_page:10)
+  end
+
+  def clientes
+    @users = User.where("idTipoUsuario = ?", 3).paginate(page: params[:page], per_page:10)
   end
 
   def create
@@ -24,10 +32,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def create_cliente
+    @user= User.new(cliente_params)
+
+    @user.idTipoUsuario = 3
+    if @user.save
+      flash[:success] = "Cliente creado!"
+      redirect_to clientes_path
+    else
+      render 'new_cliente'
+    end
+  end
+
   def destroy
+    origen = User.find(params[:id]).idTipoUsuario
     User.find(params[:id]).destroy
-    flash[:success] = "Usuario borrado."
-    redirect_to users_url
+    if(origen == 2)
+      flash[:success] = "Usuario borrado."
+      redirect_to users_url
+    else
+      flash[:success] = "Cliente borrado."
+      redirect_to clientes_url
+    end
   end
 
   def show
@@ -86,17 +112,17 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :rut, :password,:password_confirmation,:nombre,:apellido1,:apellido2)
   end
 
+  def cliente_params
+    params.require(:user).permit(:email, :rut, :nombre, :password,:password_confirmation)
+  end
+
+
+
   # Before filters
 
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
-  end
-
-  def admin_user
-    if current_user.idTipoUsuario != 1
-      redirect_to(root_url)
-    end
   end
 
 end

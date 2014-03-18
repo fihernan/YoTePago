@@ -1,0 +1,21 @@
+<% provide(:title, 'Publicidades') %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @user.nombre%>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+    <% if @advertisings.any? %>
+        <h3>Publicidades disponibles (<%= @advertisings.count %>)</h3>
+        <ol class="advertisings">
+          <% @advertisings.each do |advertising| %>
+            <%= render :partial => 'advertisings/publicidad',locals: { advertising: advertising }%>
+          <% end %>
+        </ol>
+        <%= will_paginate @advertisings %>
+    <% end %>
+  </div>
+</div>

@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
-  VALID_RUT_REGEX = /\A(\d{1,3})\.(\d{1,3})\.(\d{1,3})\-(k|\d{1})\Z/i
+  VALID_RUT_REGEX = /\A(\d{0,3})+\.?(\d{0,3})+\.?(\d{1,3})\-(k|\d{1})\Z/i
   validates :rut, presence: {message:"obligatorio"},format: { with: VALID_RUT_REGEX, message:"no valido" },
             uniqueness: { case_sensitive: false, message:"ya existe en el sistema" }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i

@@ -1,0 +1,19 @@
+<% provide(:title, 'Publicidad') %>
+<h1>Nueva Publicidad <%= @user.nombre%></h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for (@advertising) do |f| %>
+        <%= render 'shared/error_messages', object: f.object%>
+
+        <%= f.hidden_field :idUsuario, :value => @user.id %>
+
+        <%= f.label 'alcance:' %>
+        <%= f.text_field :numEncuestas %>
+
+        <%= f.label :categoria %>
+        <%= collection_select(:Categoria, :idcategoria, @categorias, :idcategoria, :nombre, options ={:prompt => "Selecciona una categoria"}) %>
+
+        <%= f.submit 'Enviar' ,class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

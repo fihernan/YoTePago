@@ -3,7 +3,7 @@ YoTePago::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   resources :advertisings, only: [:create, :destroy, :edit]
+   resources :advertisings
    resources :sessions, only: [:new, :create, :destroy]
    resources :users
    root :to=>'home#index'
@@ -18,7 +18,11 @@ YoTePago::Application.routes.draw do
 
    match '/signup',  to: 'users#new', via: 'get'
    match '/edit',  to: 'users#edit', via: 'get'
+   match '/clientes',  to: 'users#clientes', via: 'get'
+   match '/new_cliente',  to: 'users#new_cliente', via: 'get'
+   match '/new_cliente',  to: 'users#create_cliente', via: 'post'
 
+   match '/video',  to: 'advertisings#video', via: 'get'
    #JS
    get "load_ciudades" => "users#load_ciudades"
    get "load_comunas" => "users#load_comunas"

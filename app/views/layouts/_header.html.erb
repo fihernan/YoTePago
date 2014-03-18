@@ -9,6 +9,15 @@
                   <li><%= link_to "Inicio", current_user %></li>
               <% elsif current_user.idTipoUsuario == 1 %>
                   <li><%= link_to "Usuarios", users_path %></li>
+                  <li id="fat-menu" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Clientes <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Crear", new_cliente_path %></li>
+                      <li><%= link_to "Todos", clientes_path %></li>
+                    </ul>
+                  </li>
               <% end %>
               <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
