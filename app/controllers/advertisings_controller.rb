@@ -8,11 +8,14 @@ class AdvertisingsController < ApplicationController
 
   def create
     @advertising= Advertising.new(advertising_params)
-
+    @advertising.idCategoria = params[:Categoria][:idcategoria]
     if @advertising.save
       flash[:success] = "Publicidad creada!"
       redirect_to root_path
     else
+      @user = User.find(params[:advertising][:idUsuario])
+      @advertising = Advertising.new
+      @categorias = Categoria.all
       render 'new'
     end
   end
@@ -27,7 +30,7 @@ class AdvertisingsController < ApplicationController
   end
 
   def advertising_params
-    params.require(:advertising).permit(:numEncuestas, :idCategoria, :idUsuario)
+    params.require(:advertising).permit(:numEncuestas, :idUsuario)
   end
 end
 

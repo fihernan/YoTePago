@@ -3,6 +3,4 @@ class Advertising < ActiveRecord::Base
   has_many :users, through: :assignations
   belongs_to :user,  foreign_key: "idUsuario"
   belongs_to :categoria,  foreign_key: "idCategoria"
-
-  validates :numEncuestas, presence: {message:"obligatorio"}
 end
