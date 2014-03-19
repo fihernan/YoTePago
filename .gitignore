@@ -14,7 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/public/upload
+/public/upload/*.mp4
 
 # Ignore other unneeded files.
 database.yml
