@@ -5,6 +5,9 @@
       <h1>
         <%= @user.nombre%>
       </h1>
+      <span class="content">
+        <%= image_tag(@user.avatar_path)%>
+      </span>
     </section>
   </aside>
   <div class="span8">
@@ -17,5 +20,8 @@
         </ol>
         <%= will_paginate @advertisings %>
     <% end %>
+  </div>
+  <div class="pull-right">
+    <%= link_to image_tag("back.png"), :back %>
   </div>
 </div>

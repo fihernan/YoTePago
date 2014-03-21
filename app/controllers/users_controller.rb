@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update, :destroy, :show]
-  before_action :correct_user,   only: [:edit, :update, :show]
-  before_action :admin_user,   only: [:index, :destroy]
+  before_action :admin_user,   only: [:index, :destroy, :clientes, :new_cliente]
+  before_action :correct_user,   only: [:edit, :update, :show, :clientes, :new_cliente]
+
 
   def new
     @user = User.new
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
     @user.idTipoUsuario = 3
     if @user.save
       flash[:success] = "Cliente creado!"
-      redirect_to clientes_path
+      redirect_to clientes_user_path(current_user.idUsuario)
     else
       render 'new_cliente'
     end
@@ -59,6 +60,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @advertisings = @user.advertisings.paginate(page: params[:page])
+    if(@user.idTipoUsuario == 3)
+      @advertisings = Advertising.where("idUsuario = ?", @user.id).paginate(page: params[:page], per_page:10)
+    end
   end
 
   def edit
@@ -116,13 +120,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :rut, :nombre, :password,:password_confirmation)
   end
 
-
-
-  # Before filters
-
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
   end
-
 end

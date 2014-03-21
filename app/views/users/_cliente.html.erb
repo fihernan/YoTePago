@@ -1,0 +1,18 @@
+<aside class="span4">
+  <section>
+    <span class="content">
+        <%= image_tag(@user.avatar_path)%>
+      </span>
+  </section>
+</aside>
+<div class="span8">
+  <% if advertisings.any? %>
+      <h3>Publicidades (<%= advertisings.count %>)</h3>
+      <ol class="advertisings">
+        <% @advertisings.each do |advertising| %>
+            <%= render :partial => 'advertisings/publicidad_cliente',locals: { advertising: advertising }%>
+        <% end %>
+      </ol>
+      <%= will_paginate advertisings %>
+  <% end %>
+</div>

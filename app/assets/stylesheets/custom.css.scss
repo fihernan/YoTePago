@@ -202,6 +202,17 @@ input {
     border-top: 1px solid #e8e8e8;
   }
 }
+
+.preguntas {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+}
+
 .content {
   display: block;
 }
@@ -228,4 +239,10 @@ aside {
     display: inline;
     margin-bottom: 15px;
   }
+}
+
+.video_div{
+  position: relative;
+  left: 50%;
+  margin-left: -400px;
 }

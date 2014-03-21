@@ -1,0 +1,20 @@
+<% provide(:title, 'Encuesta') %>
+<div class="row">
+  <h3>Nombre publicidad</h3>
+</div>
+<div class="row">
+  <aside class="span3">
+  </aside>
+  <div class="span9">
+      <h3>Preguntas disponibles (<%= @preguntas.count %>)</h3>
+      <ol class="preguntas">
+        <% @preguntas.each do |pregunta| %>
+            <%= render :partial => 'advertisings/pregunta',locals: { pregunta: pregunta }%>
+        <% end %>
+      </ol>
+      <%= will_paginate @preguntas %>
+  </div>
+  <div class="pull-right">
+    <%= link_to image_tag("back.png"), :back %>
+  </div>
+</div>

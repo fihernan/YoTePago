@@ -1,0 +1,21 @@
+<aside class="span4">
+  <section>
+    <h1>
+      <%= @user.email%>
+    </h1>
+  </section>
+  <% if @user.nombre.nil? %>
+        <span>
+            <%= link_to "Actualiza tu perfil", edit_user_path %>
+        </span>
+  <% end %>
+</aside>
+<div class="span8">
+  <% if user.advertisings.any? %>
+      <h3>Publicidades disponibles (<%= user.advertisings.count %>)</h3>
+      <ol class="advertisings">
+        <%= render advertisings %>
+      </ol>
+      <%= will_paginate advertisings %>
+  <% end %>
+</div>

@@ -2,10 +2,11 @@
   <span class="content">
       <%= link_to user.nombre, user %>
   </span>
-  <% if current_user.idTipoUsuario == 1 && !current_user?(user) %>
-      <%= link_to "Ver Publicidades", advertisings_path(:id => user.id) %>
-      |  <%= link_to "Crear Publicidad", new_advertising_path(:id => user.id) %>
-      | <%= link_to "Borrar", user, method: :delete,
-                    data: { confirm: "Esta seguro de eliminar al usuario?" } %>
+  <% if current_user.idTipoUsuario == 1 && !current_user?(user) && user.idTipoUsuario == 3 %>
+      <%= link_to image_tag("eye.png"), user_advertisings_path( current_user.id, :idOwner => user.id) %>
+      |  <%= link_to image_tag("create.png"), new_user_advertising_path( current_user.id, :idOwner => user.id) %>
+      |
   <% end %>
+  <%= link_to image_tag("cancel.png"), user, method: :delete,
+              data: { confirm: "Esta seguro de eliminar al usuario?" } %>
 </li>

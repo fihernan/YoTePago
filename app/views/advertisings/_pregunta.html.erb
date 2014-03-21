@@ -1,0 +1,10 @@
+<li>
+  <span class="content">
+    <strong><%= pregunta.texto %></strong>
+    <ol class="preguntas">
+      <% pregunta.alternativas.each do |alternativa| %>
+          <%= render :partial => 'advertisings/alternativa',locals: { alternativa: alternativa }%>
+      <% end %>
+    </ol>
+  </span>
+</li>

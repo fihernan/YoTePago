@@ -1,10 +1,6 @@
-<script type="text/javascript">jwplayer.key="3raTwUxFEiZ0vqcEKmFZwDFCuKSGFBKEQHnUlg==";</script>
-<div id="video">Loading the player ...</div>
-<script>
-    jwplayer("video").setup({
-        file: "https://www.youtube.com/watch?v=cihihZG-bI0",
-        'width': '800',
-        'height': '600',
-        'autostart': 'true',
-    });
-</script>
+<% provide(:title, 'Video') %>
+<div class="video_div">
+    <div id="video">
+        <hidden_field id="video_url"><%= @advertising.pathContenido %></hidden_field>
+    </div>
+</div>

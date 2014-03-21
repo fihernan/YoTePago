@@ -1,24 +1,10 @@
 <% provide(:title, '') %>
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= @user.email%>
-      </h1>
-    </section>
-    <% if @user.idTipoUsuario == 2 && @user.nombre.nil? %>
-        <span>
-            <%= link_to "Actualiza tu perfil", edit_user_path %>
-        </span>
-    <% end %>
-  </aside>
-  <div class="span8">
-    <% if @user.advertisings.any? %>
-        <h3>Publicidades disponibles (<%= @user.advertisings.count %>)</h3>
-        <ol class="advertisings">
-          <%= render @advertisings %>
-        </ol>
-        <%= will_paginate @advertisings %>
-    <% end %>
-  </div>
+  <% if @user.idTipoUsuario == 1 %>
+      <%= render :partial => 'users/admin',locals: { user: @user }%>
+  <% elsif @user.idTipoUsuario == 2 %>
+      <%= render :partial => 'users/usuario',locals: { advertisings: @advertisings, user: @user }%>
+  <% elsif @user.idTipoUsuario == 3%>
+      <%= render :partial => 'users/cliente',locals: { advertisings: @advertisings, user: @user }%>
+  <% end %>
 </div>

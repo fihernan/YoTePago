@@ -14,8 +14,8 @@
                       Clientes <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><%= link_to "Crear", new_cliente_path %></li>
-                      <li><%= link_to "Todos", clientes_path %></li>
+                      <li><%= link_to "Crear", new_cliente_user_path(current_user.idUsuario) %></li>
+                      <li><%= link_to "Todos", clientes_user_path(current_user.idUsuario) %></li>
                     </ul>
                   </li>
               <% end %>
