@@ -13,11 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
+//= require jquery-fileupload
 //= require bootstrap
 //= require jwplayer/jwplayer.js
 //= require jwplayer/jwplayer.html5.js
 //= require turbolinks
-//= require jquery-fileupload
 //= require_tree .
 
 
