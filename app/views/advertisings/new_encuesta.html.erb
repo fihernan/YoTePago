@@ -1,57 +1,19 @@
-<% provide(:title, 'Publicidad') %>
-<h1>Nueva Publicidad <%= @user.nombre%></h1>
+<% provide(:title, 'Carga Encuesta') %>
+<h1>Cargar Encuesta</h1>
+
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for (@advertising), html: { multipart: true }, :url => user_advertisings_path(current_user.idUsuario,@advertising) do |f| %>
+    <%= form_for (@advertising), :method => 'PUT' ,:url => new_encuesta_user_advertising_path(current_user.idUsuario,@advertising) do |f| %>
         <%= render 'shared/error_messages', object: f.object%>
 
-        <%= f.hidden_field :idUsuario, :value => @user.id %>
+        <%= f.hidden_field :idUsuario, :value => @advertising.idUsuario %>
 
-        <%= f.label :alcance %>
-        <%= f.text_field :numEncuestas %>
-
-        <%= f.label :categoria %>
-        <%= collection_select(:Categoria, :idcategoria, @categorias, :idcategoria, :nombre, options ={:prompt => "Selecciona una categoria"}) %>
-
-
-        <%= f.label :Contenido %>
-        <div class="contenido">
-            <%= f.label :Youtube %>
-            <%= f.check_box :tipoContenidoYoutube %>
-
-            <%= f.label :Video %>
-            <%= f.check_box :tipoContenidoVideo %>
+        <div id="encuesta">
+            <%= f.label :encuesta %>
+            <%= f.file_field :csv %>
         </div>
 
-        <div id="pathContenido">
-            <%= f.label :link %>
-            <%= f.text_field :pathContenidoLocal %>
-        </div>
-
-        <div id="pathContenidoVideo">
-          <%= f.label :video %>
-          <%= f.file_field :pathContenidoVideo %>
-        </div>
-
-        <%= f.label :filtros %>
-        <div class="filtro_sexo">
-          <%= f.label :hombre %>
-          <%= f.radio_button :filtroSexo, 0 %>
-          <%= f.label :mujer %>
-          <%= f.radio_button :filtroSexo, 1 %>
-          <%= f.label :mixto %>
-          <%= f.radio_button :filtroSexo, 2 %>
-        </div>
-
-        <div class="filtro_edad">
-          <%= f.label :edad_minima %>
-          <%= f.select :min, (10..99).to_a %>
-
-          <%= f.label :edad_maxima %>
-          <%= f.select :max, (10..99).to_a %>
-        </div>
-
-        <%= f.submit 'Crear' ,class: "btn btn-large btn-primary" %>
+        <%= f.submit 'Generar' ,class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

@@ -53,7 +53,7 @@ class UsersController < ApplicationController
       redirect_to users_url
     else
       flash[:success] = "Cliente borrado."
-      redirect_to clientes_url
+      redirect_to clientes_user_path(current_user.idUsuario)
     end
   end
 
@@ -109,15 +109,15 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :rut, :password,:password_confirmation)
+    params.require(:user).permit(:email, :celular, :password,:password_confirmation)
   end
 
   def user_params_edit
-    params.require(:user).permit(:email, :rut, :password,:password_confirmation,:nombre,:apellido1,:apellido2)
+    params.require(:user).permit(:email,:password,:password_confirmation,:nombre,:apellido1,:apellido2)
   end
 
   def cliente_params
-    params.require(:user).permit(:email, :rut, :nombre, :password,:password_confirmation)
+    params.require(:user).permit(:email,:celular ,:nombre, :password,:password_confirmation, :avatar_path)
   end
 
   def correct_user

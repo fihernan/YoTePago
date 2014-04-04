@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    rut = params[:session][:rut]
+    email = params[:session][:email]
     password = params[:session][:password]
 
-    user = User.autenticar_por_rut(rut, password)
+    user = User.autenticar_por_email(email, password)
 
     if user
       sign_in user

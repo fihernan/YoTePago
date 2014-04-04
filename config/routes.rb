@@ -15,6 +15,8 @@ YoTePago::Application.routes.draw do
        member do
          get 'video'
          get 'encuesta'
+         get 'new_encuesta'
+         put 'new_encuesta' => "advertisings#update"
        end
      end
    end

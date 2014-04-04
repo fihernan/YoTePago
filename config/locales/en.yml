@@ -20,9 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  errors:
+    messages:
+      extension_white_list_error: "%{extension} no permitido, tipos permitidos: %{allowed_types}"
   activerecord:
     attributes:
       user:
         apellido1: "Primer apellido"
         apellido2: "Segundo apellido"
         idComuna: "Pais/Ciudad/Comuna"
+      advertising:
+        numEncuestas: "Alcance"
+        idCategoria: "Categoria"
+        tipoContenido: "Contenido"
+        pathContenido: "Contenido"
+        csv: "Preguntas"

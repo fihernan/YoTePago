@@ -233,11 +233,25 @@ aside {
   }
 }
 
-.sexo {
+.filtro_edad {
+  select{
+    width: 20%;
+  }
+}
+
+.sexo,.contenido {
+  margin-bottom: 15px;
   input,label{
     width: 32.69%;
     display: inline;
-    margin-bottom: 15px;
+  }
+}
+
+.filtro_sexo {
+  margin-bottom: 15px;
+  input,label{
+    width: 20.00%;
+    display: inline;
   }
 }
 
@@ -245,4 +259,8 @@ aside {
   position: relative;
   left: 50%;
   margin-left: -400px;
+}
+
+.encuesta{
+  width: 100%;
 }

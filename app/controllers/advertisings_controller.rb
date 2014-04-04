@@ -1,5 +1,5 @@
 class AdvertisingsController < ApplicationController
-  before_action :admin_user , only: [:index, :create, :destroy, :new]
+  before_action :admin_user , only: [:index, :create, :destroy, :new, :new_encuesta]
   before_action :correct_user,   only: [:video, :encuesta]
 
   def index
@@ -10,12 +10,22 @@ class AdvertisingsController < ApplicationController
   def create
     @advertising= Advertising.new(advertising_params)
     @advertising.idCategoria = params[:Categoria][:idcategoria]
+
+    if params[:advertising][:tipoContenidoVideo] == '1'
+      @advertising.tipoContenido = 1
+      @advertising.pathContenido = params[:advertising][:pathContenidoVideo]
+    elsif params[:advertising][:tipoContenidoYoutube] == '1'
+      @advertising.tipoContenido = 0
+      @advertising.pathContenido = params[:advertising][:pathContenidoLocal]
+    end
+
     if @advertising.save
+      #Advertising.import(params[:advertising][:csv])
       flash[:success] = "Publicidad creada!"
-      redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
+      #redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
+      redirect_to new_encuesta_user_advertising_path(current_user.idUsuario, @advertising.id)
     else
       @user = User.find(params[:advertising][:idUsuario])
-      @advertising = Advertising.new
       @categorias = Categoria.all
       render 'new'
     end
@@ -30,12 +40,26 @@ class AdvertisingsController < ApplicationController
     @categorias = Categoria.all
   end
 
+  def new_encuesta
+    @advertising = Advertising.find(params[:id])
+  end
+
+  def update
+    flash[:success] = "Encuesta creada!"
+    redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
+  end
+
   def advertising_params
-    params.require(:advertising).permit(:numEncuestas, :idUsuario)
+    params.require(:advertising).permit(:numEncuestas, :idUsuario, :pathContenidoLocal)
   end
 
   def video
     @advertising = Advertising.find(params[:id])
+    if @advertising.tipoContenido == 0
+      @advertising.pathContenido = @advertising.pathContenidoOnline
+    elsif
+      @advertising.pathContenido = @advertising.pathContenidoLocal
+    end
   end
 
   def encuesta
