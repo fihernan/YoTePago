@@ -16,6 +16,7 @@
 //= require jquery-fileupload
 //= require bootstrap
 //= require jwplayer.js
+//= require jwplayer.html5
 //= require turbolinks
 //= require_tree .
 
