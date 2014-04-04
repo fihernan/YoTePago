@@ -1,7 +1,4 @@
 class Advertising < ActiveRecord::Base
-  require 'CSV'
-  require 'iconv'
-
   mount_uploader :pathContenidoLocal, VideoUploader
 
   has_many :assignations ,  foreign_key: "idPublicidad", dependent: :destroy
@@ -17,17 +14,4 @@ class Advertising < ActiveRecord::Base
   validates :idCategoria, presence: {message:"obligatorio"}
   validates :tipoContenido, presence: {message:"obligatorio"}
 
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-
-      product_hash = row.to_hash # exclude the price field
-      product = Product.where(id: product_hash["id"])
-
-      if product.count == 1
-        product.first.update_attributes(product_hash)
-      else
-        Product.create!(product_hash)
-      end
-    end
-  end
 end
