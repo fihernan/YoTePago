@@ -14,4 +14,15 @@ class Advertising < ActiveRecord::Base
   validates :idCategoria, presence: {message:"obligatorio"}
   validates :tipoContenido, presence: {message:"obligatorio"}
 
+  def self.import(file,id)
+    CSV.foreach(file, headers: true,:encoding => 'windows-1251:utf-8') do |row|
+      pregunta_hash = row.to_hash
+      pregunta = Pregunta.create!(:idPublicidad => id, :texto => pregunta_hash["Preguntas"])
+      Alternativa.create!("idPregunta" => pregunta.id, :texto => pregunta_hash["Alt1"])
+      Alternativa.create!("idPregunta" => pregunta.id, :texto => pregunta_hash["Alt2"])
+      Alternativa.create!("idPregunta" => pregunta.id, :texto => pregunta_hash["Alt3"])
+      Alternativa.create!("idPregunta" => pregunta.id, :texto => pregunta_hash["Alt4"])
+      Alternativa.create!("idPregunta" => pregunta.id, :texto => pregunta_hash["Alt5"])
+    end
+  end
 end

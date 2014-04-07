@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for (@advertising), :method => 'PUT' ,:url => new_encuesta_user_advertising_path(current_user.idUsuario,@advertising) do |f| %>
+    <%= form_for (@advertising), html: { multipart: true },:method => 'PUT' ,:url => new_encuesta_user_advertising_path(current_user.idUsuario,@advertising) do |f| %>
         <%= render 'shared/error_messages', object: f.object%>
 
         <%= f.hidden_field :idUsuario, :value => @advertising.idUsuario %>

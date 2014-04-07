@@ -45,8 +45,20 @@ class AdvertisingsController < ApplicationController
   end
 
   def update
-    flash[:success] = "Encuesta creada!"
-    redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
+    if params[:advertising][:csv].nil?
+      @advertising = Advertising.find(params[:id])
+      flash.now[:error] = 'Debe cargar un archivo CSV'
+      render 'new_encuesta'
+    elsif
+      if !params[:advertising][:csv].content_type.eql? "application/vnd.ms-excel"
+        flash.now[:error] = 'Archivo debe ser CSV'
+        @advertising = Advertising.find(params[:id])
+        render 'new_encuesta'
+      end
+    else
+      Advertising.import(params[:advertising][:csv].tempfile,params[:id])
+      redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
+    end
   end
 
   def advertising_params
