@@ -8,7 +8,7 @@ class Advertising < ActiveRecord::Base
   belongs_to :categoria,  foreign_key: "idCategoria"
 
   attr_accessible :numEncuestas,:idUsuario,:idCategoria, :tipoContenido, :pathContenidoLocal, :pathContenidoOnline
-  attr_accessor   :tipoContenidoVideo,:tipoContenidoYoutube,:pathContenido, :min, :max
+  attr_accessor   :tipoContenidoVideo,:tipoContenidoYoutube,:pathContenido,:pathContenidoYoutube, :pathContenidoVideo, :min, :max
 
   validates :numEncuestas, presence: {message:"obligatorio"}
   validates :idCategoria, presence: {message:"obligatorio"}

@@ -13,16 +13,16 @@ class AdvertisingsController < ApplicationController
 
     if params[:advertising][:tipoContenidoVideo] == '1'
       @advertising.tipoContenido = 1
-      @advertising.pathContenido = params[:advertising][:pathContenidoVideo]
+      @advertising.pathContenidoLocal = params[:advertising][:pathContenidoVideo]
+      logger.info(@advertising.pathContenidoLocal)
     elsif params[:advertising][:tipoContenidoYoutube] == '1'
       @advertising.tipoContenido = 0
-      @advertising.pathContenido = params[:advertising][:pathContenidoLocal]
+      @advertising.pathContenidoOnline = params[:advertising][:pathContenidoYoutube]
+      logger.info(@advertising.pathContenidoOnline)
     end
 
     if @advertising.save
-      #Advertising.import(params[:advertising][:csv])
       flash[:success] = "Publicidad creada!"
-      #redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
       redirect_to new_encuesta_user_advertising_path(current_user.idUsuario, @advertising.id)
     else
       @user = User.find(params[:advertising][:idUsuario])
@@ -62,7 +62,7 @@ class AdvertisingsController < ApplicationController
   end
 
   def advertising_params
-    params.require(:advertising).permit(:numEncuestas, :idUsuario, :pathContenidoLocal)
+    params.require(:advertising).permit(:numEncuestas, :idUsuario)
   end
 
   def video
