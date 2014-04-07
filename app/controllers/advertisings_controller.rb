@@ -56,7 +56,7 @@ class AdvertisingsController < ApplicationController
   def video
     @advertising = Advertising.find(params[:id])
     if @advertising.tipoContenido == 0
-      @advertising.pathContenido = @advertising.pathContenidoOnline
+      @advertising.pathContenido = @advertising.pathContenidoOnline + "&feature=player_embedded"
     elsif
       @advertising.pathContenido = @advertising.pathContenidoLocal
     end
