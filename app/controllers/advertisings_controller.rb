@@ -14,11 +14,9 @@ class AdvertisingsController < ApplicationController
     if params[:advertising][:tipoContenidoVideo] == '1'
       @advertising.tipoContenido = 1
       @advertising.pathContenidoLocal = params[:advertising][:pathContenidoVideo]
-      logger.info(@advertising.pathContenidoLocal)
     elsif params[:advertising][:tipoContenidoYoutube] == '1'
       @advertising.tipoContenido = 0
       @advertising.pathContenidoOnline = params[:advertising][:pathContenidoYoutube]
-      logger.info(@advertising.pathContenidoOnline)
     end
 
     if @advertising.save
