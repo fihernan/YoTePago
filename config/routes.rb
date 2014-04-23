@@ -36,6 +36,7 @@ YoTePago::Application.routes.draw do
    #JS
    get "load_ciudades" => "users#load_ciudades"
    get "load_comunas" => "users#load_comunas"
+   get "player" => "advertisings#player"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

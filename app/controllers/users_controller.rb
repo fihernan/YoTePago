@@ -59,10 +59,35 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @advertisings = @user.advertisings.paginate(page: params[:page])
     if(@user.idTipoUsuario == 3)
       @advertisings = Advertising.where("idUsuario = ?", @user.id).paginate(page: params[:page], per_page:10)
+    elsif(@user.idTipoUsuario == 2)
+      @advertisings = Advertising.where("contestadas < numEncuestas")
+      @advertisings.each do |a|
+        if Assignation.where("idUsuario = ? AND idPublicidad = ?", @user.id, a.id).blank?
+          edades = a.filtroEdad.split("-")
+          if @user.edad > edades[0].to_i && @user.edad < edades[1].to_i
+            sexo = a.filtroSexo.split("-")
+            sexoOK = false
+            if sexo.count > 1
+              if sexo[0] == @user.sexo || sexo[1] == @user.sexo
+                sexoOK = true
+              end
+            else
+              if sexo[0] == @user.sexo
+                sexoOK = true
+              end
+            end
+            if sexoOK
+              #Tenemos todo ok, creamos la asignacion y continuamos
+              assign = Assignation.new(:idUsuario => @user.id, :idPublicidad => a.id)
+              assign.save
+            end
+          end
+        end
+      end
     end
+    @advertisings = @user.advertisings.paginate(page: params[:page])
   end
 
   def edit

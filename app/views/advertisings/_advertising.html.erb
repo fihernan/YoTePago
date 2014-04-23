@@ -1,4 +1,6 @@
 <li>
-  <span class="content">Marca : <%= advertising.user.nombre %></span>
-  <span class="content">N°encuestas : <%= advertising.numEncuestas %></span>
+  <span class="user">
+    <%= link_to image_tag("/upload/video.jpg"), video_user_advertising_path(current_user.id, advertising.id) %>
+  </span>
+  <span class="content">Ganas : $$$</span>
 </li>
