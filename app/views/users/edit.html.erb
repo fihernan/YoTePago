@@ -28,7 +28,7 @@
 
         <div class="select_date">
             <%= f.label :fecha_de_nacimiento %>
-            <%= f.date_select(:fechaNacimiento,options ={:start_year => 1920,:order => [:day, :month, :year],:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']}) %>
+            <%= f.date_select(:fechaNacimiento,options ={:start_year => 1920,:end_year => Time.now.year + 5,:order => [:day, :month, :year],:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']}) %>
         </div>
         <%= f.label :pais %>
         <div id ="pais">
