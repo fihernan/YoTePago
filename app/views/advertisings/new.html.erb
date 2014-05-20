@@ -36,11 +36,11 @@
         <%= f.label :filtros %>
         <div class="filtro_sexo">
           <%= f.label :hombre %>
-          <%= f.radio_button :filtroSexo, 0 %>
+          <%= f.radio_button :filtroSexo, 'M' %>
           <%= f.label :mujer %>
-          <%= f.radio_button :filtroSexo, 1 %>
+          <%= f.radio_button :filtroSexo, 'F' %>
           <%= f.label :mixto %>
-          <%= f.radio_button :filtroSexo, 2 %>
+          <%= f.radio_button :filtroSexo, "M-F" %>
         </div>
 
         <div class="filtro_edad">

@@ -62,11 +62,15 @@ class UsersController < ApplicationController
     if(@user.idTipoUsuario == 3)
       @advertisings = Advertising.where("idUsuario = ?", @user.id).paginate(page: params[:page], per_page:10)
     elsif(@user.idTipoUsuario == 2)
+      if( @user.nombre.nil? )
+        return
+      end
       @advertisings = Advertising.where("contestadas < numEncuestas")
       @advertisings.each do |a|
         if Assignation.where("idUsuario = ? AND idPublicidad = ?", @user.id, a.id).blank?
           edades = a.filtroEdad.split("-")
-          if @user.edad > edades[0].to_i && @user.edad < edades[1].to_i
+          edad = ((Time.now - @user.fechaNacimiento)/(60*60*24)/365.2422).to_i
+          if edad > edades[0].to_i && edad < edades[1].to_i
             sexo = a.filtroSexo.split("-")
             sexoOK = false
             if sexo.count > 1
@@ -138,7 +142,7 @@ class UsersController < ApplicationController
   end
 
   def user_params_edit
-    params.require(:user).permit(:email,:password,:password_confirmation,:nombre,:apellido1,:apellido2)
+    params.require(:user).permit(:email,:password,:password_confirmation,:nombre,:apellido1,:apellido2,:fechaNacimiento, :sexo)
   end
 
   def cliente_params

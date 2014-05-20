@@ -10,6 +10,8 @@ class AdvertisingsController < ApplicationController
   def create
     @advertising= Advertising.new(advertising_params)
     @advertising.idCategoria = params[:Categoria][:idcategoria]
+    @advertising.filtroEdad = "#{params[:advertising][:min]}-#{params[:advertising][:max]}"
+    @advertising.contestadas = 0
 
     if params[:advertising][:tipoContenidoVideo] == '1'
       @advertising.tipoContenido = 1
@@ -20,7 +22,7 @@ class AdvertisingsController < ApplicationController
     end
 
     if @advertising.save
-      flash[:success] = "Publicidad creada!"
+      flash[:success] = "Publicidad creada!!!"
       redirect_to new_encuesta_user_advertising_path(current_user.idUsuario, @advertising.id)
     else
       @user = User.find(params[:advertising][:idUsuario])
@@ -60,7 +62,7 @@ class AdvertisingsController < ApplicationController
   end
 
   def advertising_params
-    params.require(:advertising).permit(:numEncuestas, :idUsuario)
+    params.require(:advertising).permit(:numEncuestas, :idUsuario, :filtroSexo)
   end
 
   def video

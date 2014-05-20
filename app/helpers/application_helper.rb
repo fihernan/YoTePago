@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def full_title(page_title)
-    base_title = "YoTePago"
+    base_title = "YoTePremio"
     if page_title.empty?
       base_title
     else

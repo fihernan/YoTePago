@@ -21,14 +21,14 @@
         <%= f.label :sexo %>
         <div class="sexo">
             <%= f.label :hombre %>
-            <%= f.radio_button :sexo, 0 %>
+            <%= f.radio_button :sexo, 'M' %>
             <%= f.label :mujer %>
-            <%= f.radio_button :sexo, 1 %>
+            <%= f.radio_button :sexo, 'F' %>
         </div>
 
         <div class="select_date">
             <%= f.label :fecha_de_nacimiento %>
-            <%= f.date_select(:edad,options ={:start_year => 1920,:order => [:day, :month, :year],:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']}) %>
+            <%= f.date_select(:fechaNacimiento,options ={:start_year => 1920,:order => [:day, :month, :year],:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']}) %>
         </div>
         <%= f.label :pais %>
         <div id ="pais">

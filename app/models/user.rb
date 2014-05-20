@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar_path, AvatarUploader
 
   attr_accessible :email, :password, :password_confirmation, :celular, :idTipoUsuario, :nombre, :apellido1, :apellido2,
-                  :idComuna, :edad, :avatar_path
+                  :idComuna, :edad, :avatar_path, :fechaNacimiento, :sexo
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   validates :nombre, presence: {message:"obligatorio"},:on => :update
   validates :apellido1, presence: {message:"obligatorio"},:on => :update
   validates :idComuna, presence: {message:"obligatorio"},:on => :update
+  validates :sexo, presence: {message:"obligatorio"},:on => :update
 
   def self.autenticar_por_email(email, password)
     user = find_by_email(email)

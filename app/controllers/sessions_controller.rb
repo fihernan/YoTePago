@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Bienvenido a YoTePago.cl!"
       redirect_back_or user
     else
-      flash.now[:error] = 'Rut/Password invalido'
+      flash.now[:error] = 'Email/Password invalido'
       render 'new'
     end
   end

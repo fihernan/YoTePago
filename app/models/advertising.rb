@@ -7,12 +7,13 @@ class Advertising < ActiveRecord::Base
   belongs_to :user,  foreign_key: "idUsuario"
   belongs_to :categoria,  foreign_key: "idCategoria"
 
-  attr_accessible :numEncuestas,:idUsuario,:idCategoria, :tipoContenido, :pathContenidoLocal, :pathContenidoOnline
+  attr_accessible :numEncuestas,:idUsuario,:idCategoria, :tipoContenido, :pathContenidoLocal, :pathContenidoOnline,:filtroSexo, :filtroEdad, :contestadas
   attr_accessor   :tipoContenidoVideo,:tipoContenidoYoutube,:pathContenido,:pathContenidoYoutube, :pathContenidoVideo, :min, :max
 
   validates :numEncuestas, presence: {message:"obligatorio"}
   validates :idCategoria, presence: {message:"obligatorio"}
   validates :tipoContenido, presence: {message:"obligatorio"}
+  validates :filtroSexo, presence: {message:"obligatorio"}
 
   def self.import(file,id)
     CSV.foreach(file, headers: true,:encoding => 'windows-1251:utf-8') do |row|
