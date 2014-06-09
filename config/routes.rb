@@ -10,13 +10,18 @@ YoTePago::Application.routes.draw do
        get 'clientes'
        get 'new_cliente'
        post 'new_cliente' => "users#create_cliente"
+       get 'cuenta'
+       get 'profile'
+       patch 'profile' => "users#update_profile"
      end
      resources :advertisings do
        member do
          get 'video'
          get 'encuesta'
          get 'new_encuesta'
+         get 'autorizar'
          put 'new_encuesta' => "advertisings#update"
+         put 'encuesta' => "advertisings#update_respuestas"
        end
      end
    end

@@ -1,13 +1,10 @@
-<% provide(:title, "Perfil") %>
+<% provide(:title, "Cuenta") %>
 <h1>Actualiza tu informaci&oacute;n</h1>
 
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for (@user) ,:url => profile_user_path(current_user.idUsuario) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
-
-        <%= f.label :codigo_autorizacion %>
-        <%= f.text_field :codigo %>
 
         <%= f.label :nombre %>
         <%= f.text_field :nombre %>
@@ -47,12 +44,6 @@
             <%= f.label :comuna %>
             <%= collection_select(:Comuna, :idcomuna, @comuna, :idcomuna, :nombre, options ={:prompt => "Selecciona una comuna",:selected => @sel_comuna}) %>
         </div>
-
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-
-        <%= f.label :password_confirmation, "Confirm Password" %>
-        <%= f.password_field :password_confirmation %>
 
         <%= f.submit "Guardar", class: "btn btn-large btn-primary" %>
     <% end %>

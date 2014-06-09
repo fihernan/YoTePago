@@ -1,12 +1,11 @@
 <li>
   <span class="content">
-      <%= link_to user.nombre, user %>
+      </h4><%= link_to user.email, user %>
+      <% if current_user.idTipoUsuario == 1 && !current_user?(user) && user.idTipoUsuario == 3 %>
+          <%= link_to image_tag("eye.png"), user_advertisings_path( current_user.id, :idOwner => user.id) %>
+          |  <%= link_to image_tag("create.png"), new_user_advertising_path( current_user.id, :idOwner => user.id) %>
+          |
+      <% end %>
+      <%= link_to image_tag("cancel.png"), user, method: :delete,data: { confirm: "Esta seguro de eliminar al usuario?" } %>
   </span>
-  <% if current_user.idTipoUsuario == 1 && !current_user?(user) && user.idTipoUsuario == 3 %>
-      <%= link_to image_tag("eye.png"), user_advertisings_path( current_user.id, :idOwner => user.id) %>
-      |  <%= link_to image_tag("create.png"), new_user_advertising_path( current_user.id, :idOwner => user.id) %>
-      |
-  <% end %>
-  <%= link_to image_tag("cancel.png"), user, method: :delete,
-              data: { confirm: "Esta seguro de eliminar al usuario?" } %>
 </li>

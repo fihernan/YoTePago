@@ -1,12 +1,14 @@
 class User < ActiveRecord::Base
-  has_many :assignations ,  foreign_key: "idUsuario", dependent: :destroy
+  has_many :assignations ,  foreign_key: "idUsuario"
+  has_many :respuestas ,  foreign_key: "idUsuario"
   has_many :advertisings, through: :assignations
   belongs_to :advertising
 
   mount_uploader :avatar_path, AvatarUploader
 
   attr_accessible :email, :password, :password_confirmation, :celular, :idTipoUsuario, :nombre, :apellido1, :apellido2,
-                  :idComuna, :edad, :avatar_path, :fechaNacimiento, :sexo
+                  :idComuna, :edad, :avatar_path, :fechaNacimiento, :sexo, :codigoSeguridad, :activada
+  attr_accessor :genero, :codigo, :premio
 
   before_save { self.email = email.downcase }
   before_create :create_remember_token
@@ -25,6 +27,7 @@ class User < ActiveRecord::Base
 
   def self.autenticar_por_email(email, password)
     user = find_by_email(email)
+    logger.info(user)
     if user
       user = user.authenticate(password)
     else

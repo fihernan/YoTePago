@@ -3,7 +3,7 @@
     <strong><%= pregunta.texto %></strong>
     <ol class="preguntas">
       <% pregunta.alternativas.each do |alternativa| %>
-          <%= render :partial => 'advertisings/alternativa',locals: { alternativa: alternativa }%>
+          <%= render :partial => 'advertisings/alternativa',locals: { alternativa: alternativa, f: f, pregunta: pregunta, q: q }%>
       <% end %>
     </ol>
   </span>

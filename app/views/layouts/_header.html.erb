@@ -7,6 +7,10 @@
           <% if signed_in? %>
               <% if current_user.idTipoUsuario == 2 %>
                   <li><%= link_to "Inicio", current_user %></li>
+                  <% if current_user.activada == 1 %>
+                      <li><%= link_to "Cuenta", cuenta_user_path(current_user) %></li>
+                      <li class="divider"></li>
+                  <% end %>
               <% elsif current_user.idTipoUsuario == 1 %>
                   <li><%= link_to "Usuarios", users_path %></li>
                   <li id="fat-menu" class="dropdown">
@@ -18,17 +22,21 @@
                       <li><%= link_to "Todos", clientes_user_path(current_user.idUsuario) %></li>
                     </ul>
                   </li>
+              <% elsif current_user.idTipoUsuario == 3 %>
+                  <li id="fat-menu" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      Informes <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Informe 1", '#' %></li>
+                      <li class="divider"></li>
+                      <li><%= link_to "Informe 2", '#' %></li>
+                      <li class="divider"></li>
+                      <li><%= link_to "Informe 3", '#' %></li>
+                    </ul>
+                  </li>
               <% end %>
-              <li id="fat-menu" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Cuenta <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Perfil", edit_user_path(current_user) %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Salir", signout_path, method: "delete" %></li>
-                </ul>
-              </li>
+              <li><%= link_to "Salir", signout_path, method: "delete" %></li>
           <% else %>
               <li><%= link_to "Inicio", root_path %></li>
               <li><%= link_to "Funcionamiento", help_path %></li>

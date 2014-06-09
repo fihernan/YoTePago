@@ -12,6 +12,7 @@ class AdvertisingsController < ApplicationController
     @advertising.idCategoria = params[:Categoria][:idcategoria]
     @advertising.filtroEdad = "#{params[:advertising][:min]}-#{params[:advertising][:max]}"
     @advertising.contestadas = 0
+    @advertising.activada = 0
 
     if params[:advertising][:tipoContenidoVideo] == '1'
       @advertising.tipoContenido = 1
@@ -32,6 +33,30 @@ class AdvertisingsController < ApplicationController
   end
 
   def destroy
+    advertising = Advertising.find(params[:id])
+    usuarioId = advertising.idUsuario
+
+    Assignation.delete_all("idPublicidad = " + advertising.id.to_s)
+    preguntas = Pregunta.where("idPublicidad = ?", advertising.id.to_s)
+    preguntas.each do |f|
+      alternativas = Alternativa.where("idpregunta = ?", f.idpregunta.to_s)
+      alternativas.each do |e|
+        Respuesta.delete_all("idalternativa = " + advertising.id.to_s)
+      end
+      Alternativa.delete_all("idpregunta = " + f.idpregunta.to_s)
+    end
+    Pregunta.delete_all("idPublicidad = " + advertising.id.to_s)
+
+    advertising.destroy
+    flash[:success] = "Publicidad borrada."
+    redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => usuarioId)
+  end
+
+  def autorizar
+    @advertisings = Advertising.find(params[:id].to_i)
+    Advertising.find(params[:id].to_i).update_attribute(:activada,1)
+    logger.info(@advertisings.inspect)
+    redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => @advertisings.idUsuario)
   end
 
   def new
@@ -61,8 +86,33 @@ class AdvertisingsController < ApplicationController
     end
   end
 
+  def update_respuestas
+    #Hay que capturar las alternativas seleccionadas, validar que contestó todas las preguntas y guardar en BD
+    #Luego cambiar estado de asignaciones y sumar la plata al usuario correspondiente
+    if(params[:quiz].count - 1 < params[:quiz][:numPreguntas].to_i)
+      @advertising = Advertising.find(params[:id])
+      @preguntas = @advertising.preguntas
+      @quiz = Quiz.new(@preguntas)
+      flash.now[:error] = 'Tienes que constestar todas las preguntas'
+      render 'encuesta'
+    else
+      params[:quiz].shift
+      params[:quiz].each do |f|
+        #Tenemos todo ok, creamos la respuesta
+        resp = Respuesta.new(:idUsuario => params[:user_id], :idAlternativa => f[1])
+        resp.save
+      end
+      #Marcamos como contestada la asignacion del usuario con la publicidad
+      Assignation.where("idUsuario = ? AND idPublicidad = ?", current_user.idUsuario,params[:id].to_i).update_all(:estado => 1)
+      @advertising = Advertising.find(params[:id])
+      Advertising.find(params[:id].to_i).update_attribute(:contestadas,@advertising.contestadas + 1)
+      flash[:success] = "Publicidad contestada!!!"
+      redirect_to user_path(current_user.idUsuario)
+    end
+  end
+
   def advertising_params
-    params.require(:advertising).permit(:numEncuestas, :idUsuario, :filtroSexo)
+    params.require(:advertising).permit(:numEncuestas, :idUsuario, :filtroSexo, :premio, :nombre)
   end
 
   def video
@@ -76,7 +126,8 @@ class AdvertisingsController < ApplicationController
 
   def encuesta
     @advertising = Advertising.find(params[:id])
-    @preguntas = @advertising.preguntas.paginate(page: params[:page], per_page:10)
+    @preguntas = @advertising.preguntas
+    @quiz = Quiz.new(@preguntas)
   end
 
   def show

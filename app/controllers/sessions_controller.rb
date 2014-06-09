@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
     if user
       sign_in user
-      flash[:success] = "Bienvenido a YoTePago.cl!"
+      flash[:success] = "Bienvenido a YoTePremio.cl!"
       redirect_back_or user
     else
       flash.now[:error] = 'Email/Password invalido'

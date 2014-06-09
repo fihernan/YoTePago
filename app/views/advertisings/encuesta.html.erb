@@ -1,20 +1,20 @@
 <% provide(:title, 'Encuesta') %>
 <div class="row">
-  <h3>Nombre publicidad</h3>
+  <h3 id="saldo"><%= @advertising.nombre %></h3>
 </div>
 <div class="row">
-  <aside class="span3">
-  </aside>
-  <div class="span9">
-      <h3>Preguntas disponibles (<%= @preguntas.count %>)</h3>
-      <ol class="preguntas">
-        <% @preguntas.each do |pregunta| %>
-            <%= render :partial => 'advertisings/pregunta',locals: { pregunta: pregunta }%>
-        <% end %>
-      </ol>
-      <%= will_paginate @preguntas %>
-  </div>
-  <div class="pull-right">
-    <%= link_to image_tag("back.png"), :back %>
+  <div class="span6 offset1">
+    <h3>Preguntas (<%= @preguntas.count %>)</h3>
+    <%= form_for (@quiz), :method => 'PUT' ,:url => encuesta_user_advertising_path(current_user.idUsuario,@advertising) do |f| %>
+        <%= render 'shared/error_messages', object: f.object%>
+        <%= f.hidden_field :numPreguntas, :value => @preguntas.count %>
+        <ol class="preguntas">
+          <% @preguntas.each do |pregunta| %>
+            <%= render :partial => 'advertisings/pregunta',locals: { pregunta: pregunta, f: f, q: @quiz }%>
+          <% end %>
+        </ol>
+        <%= f.submit 'Enviar' ,class: "btn btn-large btn-primary" %>
+    <% end %>
   </div>
 </div>
+

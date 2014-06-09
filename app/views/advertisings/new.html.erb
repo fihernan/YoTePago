@@ -7,8 +7,14 @@
 
         <%= f.hidden_field :idUsuario, :value => @user.id %>
 
+        <%= f.label :nombre %>
+        <%= f.text_field :nombre %>
+
         <%= f.label :alcance %>
         <%= f.text_field :numEncuestas %>
+
+        <%= f.label :Premio %>
+        <%= f.text_field :premio %>
 
         <%= f.label :categoria %>
         <%= collection_select(:Categoria, :idcategoria, @categorias, :idcategoria, :nombre, options ={:prompt => "Selecciona una categoria"}) %>

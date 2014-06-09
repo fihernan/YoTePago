@@ -3,8 +3,10 @@
     <%= link_to image_tag("video.jpg"), video_user_advertising_path(current_user.id, advertising.id) %>
     <%= link_to image_tag("encuesta.png"), encuesta_user_advertising_path(current_user.id, advertising.id) %>
   </span>
-  <span class="content">N°encuestas : <%= advertising.numEncuestas %></span>
-  <%= link_to image_tag("check.png"), user_advertising_path(current_user.id, advertising.id), method: :delete%>
-  | <%= link_to image_tag("cancel.png"), user_advertising_path(current_user.id, advertising.id), method: :delete,
+  <span class="content"><h4>N°encuestas : <%= advertising.numEncuestas %></h4></span>
+  <% if advertising.activada == 0 %>
+    <%= link_to image_tag("check.png"), autorizar_user_advertising_path(current_user.id, advertising.id)%>
+  <% end %>
+  <%= link_to image_tag("cancel.png"), user_advertising_path(current_user.id, advertising.id), method: :delete,
               data: { confirm: "¿Esta seguro de eliminar la publicidad?" }%>
 </li>

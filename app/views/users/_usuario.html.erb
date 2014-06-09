@@ -1,21 +1,26 @@
-<aside class="span4">
+<aside class="span3">
   <section>
     <h1>
       <%= @user.email%>
     </h1>
   </section>
-  <% if @user.nombre.nil? %>
+  <% if @user.activada == 0 %>
         <span>
             <%= link_to "Actualiza tu perfil", edit_user_path %>
         </span>
   <% end %>
 </aside>
 <div class="span8">
-  <% if user.advertisings.any? %>
-      <h3>Publicidades disponibles (<%= user.advertisings.count %>)</h3>
+  <% if @user.activada == 1 && @advertisings.any? %>
+      <h3>Publicidades disponibles (<%= @advertisings.count %>)</h3>
       <ol class="advertisings">
         <%= render advertisings %>
       </ol>
       <%= will_paginate advertisings %>
+  <% elsif  @user.activada == 1%>
+      <h2>No tienes publicidades disponibles!!</h2>
+      <h2>Vuelve pronto por más novedades!!</h2>
+  <% else%>
+      <h2>Antes de empezar a ganar premios, debes completar tu perfil y activar tu cuenta!!!</h2>
   <% end %>
 </div>

@@ -1,1 +1,4 @@
-<p><%= alternativa.texto %></p>
+<div class="contenidoAlternativas">
+  <%= f.radio_button q.respuestas[q.respuestas.index("p" + pregunta.idpregunta.to_s)], alternativa.idalternativa %>
+  <%= f.label alternativa.texto %>
+</div>

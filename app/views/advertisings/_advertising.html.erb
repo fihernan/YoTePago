@@ -2,5 +2,5 @@
   <span class="user">
     <%= link_to image_tag("video.jpg"), video_user_advertising_path(current_user.id, advertising.id) %>
   </span>
-  <span class="content">Ganas : $$$</span>
+  <span class="content"><h4>Ganas $<%= advertising.premio%></h4></span>
 </li>

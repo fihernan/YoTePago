@@ -58,4 +58,22 @@ module SessionsHelper
   def store_location
     session[:return_to] = request.url if request.get?
   end
+
+  def sendMail(to,msg)
+    Pony.mail({
+                  :to => to,
+                  :from => 'contacto@ytp.cl',
+                  :subject => 'Bienvenido a YoTePremio.cl!!!',
+                  :body => msg,
+                  :via => :smtp,
+                  :via_options => {
+                      :address        => 'smtp.gmail.com',
+                      :port           => '587',
+                      :user_name      => 'contacto.ytp',
+                      :password       => 'ytp2014a',
+                      :authentication => :plain,
+                      :domain         => "ytp.cl"
+                  }
+              })
+  end
 end

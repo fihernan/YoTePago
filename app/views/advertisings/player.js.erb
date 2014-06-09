@@ -1,1 +1,5 @@
-jwplayer().onComplete(function() {window.location.replace("/users/<%= current_user.id %>/advertisings/<%= @advertisingId %>/encuesta")});
+if ("<%=current_user.idTipoUsuario%>" == 2){
+    jwplayer().onComplete(function () {
+        window.location.replace("/users/<%= current_user.id %>/advertisings/<%= @advertisingId %>/encuesta")
+    });
+};

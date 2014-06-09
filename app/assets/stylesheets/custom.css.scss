@@ -247,12 +247,24 @@ aside {
   }
 }
 
+.contenidoAlternativas{
+  margin-bottom: 15px;
+  input,label{
+    width: 10%;
+    display: inline;
+  }
+}
+
 .filtro_sexo {
   margin-bottom: 15px;
   input,label{
     width: 20.00%;
     display: inline;
   }
+}
+
+#saldo{
+  color: limegreen;
 }
 
 .video_div{

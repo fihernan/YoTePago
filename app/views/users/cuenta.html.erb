@@ -1,0 +1,42 @@
+<% provide(:title, 'Cuenta') %>
+<div class="row">
+  <aside class="span5">
+    <table class="table table-hover">
+      <tr>
+        <td><h4>Nombre</h4></td>
+        <td><h4><small><%= @user.nombre%> <%= @user.apellido1%> <%= @user.apellido2%></small></h4></td>
+      </tr>
+      <tr>
+        <td><h4>Mail</h4></td>
+        <td><h4><small><%= @user.email%></small></h4></td>
+      </tr>
+      <tr>
+        <td><h4>Celular</h4></td>
+        <td><h4><small><%= @user.celular%></small></h4></td>
+      </tr>
+      <tr>
+        <td><h4>Género</h4></td>
+        <td><h4><small><%= @user.genero%></small></h4></td>
+      </tr>
+      <tr>
+        <td><h4>Cumpleaños</h4></td>
+        <td><h4><small><%= @user.fechaNacimiento.strftime("%d/%m/%Y")%></small></h4></td>
+      </tr>
+      <tr>
+        <td><h3 id="saldo">Saldo</h3></td>
+        <td><h3 id="saldo">$<%= @user.premio%></h3></td>
+      </tr>
+    </table>
+    <p><%= link_to "Modificar Información", profile_user_path(@user) %></p>
+  </aside>
+  <div class="span4">
+    <h4>Publicidades contestadas</h4>
+    <% if @advertisings.any? %>
+        <ol class="advertisings">
+          <% @advertisings.each do |advertising| %>
+              <%= render :partial => 'advertisings/resumen',locals: { advertising: advertising }%>
+          <% end %>
+        </ol>
+    <% end %>
+  </div>
+</div>
