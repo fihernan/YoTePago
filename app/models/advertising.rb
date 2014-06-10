@@ -7,7 +7,7 @@ class Advertising < ActiveRecord::Base
   belongs_to :user,  foreign_key: "idUsuario"
   belongs_to :categoria,  foreign_key: "idCategoria"
 
-  attr_accessible :numEncuestas,:idUsuario,:idCategoria, :tipoContenido, :pathContenidoLocal, :pathContenidoOnline,:filtroSexo, :filtroEdad, :contestadas, :activada, :premio, :nombre
+  attr_accessible :numEncuestas,:idUsuario,:idCategoria, :tipoContenido, :pathContenidoLocal, :pathContenidoOnline,:filtroSexo, :filtroEdad, :contestadas, :activada, :premio,:nombre
   attr_accessor   :tipoContenidoVideo,:tipoContenidoYoutube,:pathContenido,:pathContenidoYoutube, :pathContenidoVideo, :min, :max, :respuesta
 
   validates :numEncuestas, presence: {message:"obligatorio"}
