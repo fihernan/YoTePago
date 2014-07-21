@@ -1,13 +1,19 @@
 <aside class="span3">
-  <section>
-    <h1>
-      <%= @user.email%>
-    </h1>
-  </section>
   <% if @user.activada == 0 %>
+      <section>
+        <h1>
+          <%= @user.email%>
+        </h1>
+      </section>
         <span>
             <%= link_to "Actualiza tu perfil", edit_user_path %>
         </span>
+  <% else %>
+      <section>
+        <h4><small>Bienvenido!!!</small></h4>
+        <h1><%= @user.nombre  + " " + @user.apellido1 + " " +  @user.apellido2%></h1>
+      </section>
+      <span></span>
   <% end %>
 </aside>
 <div class="span8">

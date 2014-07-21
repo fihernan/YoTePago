@@ -22,6 +22,8 @@ YoTePago::Application.routes.draw do
          get 'autorizar'
          put 'new_encuesta' => "advertisings#update"
          put 'encuesta' => "advertisings#update_respuestas"
+         get 'editar'
+         patch 'editar' => "advertisings#actualizar"
        end
      end
    end

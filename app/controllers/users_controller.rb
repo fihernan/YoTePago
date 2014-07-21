@@ -107,7 +107,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if(@user.idTipoUsuario == 3)
-      @advertisings = Advertising.where("idUsuario = ?", @user.id).paginate(page: params[:page], per_page:10)
+      @advertisings = Advertising.where("idUsuario = ?", @user.id).order("fechaCreacion DESC").paginate(page: params[:page], per_page:10)
     elsif(@user.idTipoUsuario == 2)
       if( @user.activada == 0 )
         return

@@ -3,5 +3,8 @@
     <%= link_to image_tag("video.jpg"), video_user_advertising_path(current_user.id, advertising.id) %>
     <%= link_to image_tag("encuesta.png"), encuesta_user_advertising_path(current_user.id, advertising.id) %>
   </span>
-  <span class="content">N°encuestas : <%= advertising.numEncuestas %></span>
+  <span class="content"><h5>Nombre : <small><%= advertising.nombre %></small></h5></span>
+  <span class="content"><h5>N°encuestas : <small><%= advertising.numEncuestas %></small></h5></span>
+  <span class="content"><h5>Filtro Genero : <small><%= advertising.filtroSexo %></small></h5></span>
+  <span class="content"><h5>Filtro Edad : <small><%= advertising.filtroEdad %></small></h5></span>
 </li>

@@ -4,7 +4,7 @@ class AdvertisingsController < ApplicationController
 
   def index
     @user = User.find(params[:idOwner])
-    @advertisings = Advertising.where("idUsuario = ?", @user.id).paginate(page: params[:page], per_page:10)
+    @advertisings = Advertising.where("idUsuario = ?", @user.id).order("fechaCreacion ASC").paginate(page: params[:page], per_page:10)
   end
 
   def create
@@ -13,6 +13,7 @@ class AdvertisingsController < ApplicationController
     @advertising.filtroEdad = "#{params[:advertising][:min]}-#{params[:advertising][:max]}"
     @advertising.contestadas = 0
     @advertising.activada = 0
+    @advertising.fechaCreacion = Time.now
 
     if params[:advertising][:tipoContenidoVideo] == '1'
       @advertising.tipoContenido = 1
@@ -132,6 +133,35 @@ class AdvertisingsController < ApplicationController
 
   def show
 
+  end
+
+  def editar
+    @advertising = Advertising.find(params[:id])
+    @user = User.find(@advertising.idUsuario)
+    @categorias = Categoria.all
+    @sel_categoria = @advertising.idCategoria
+    edades = @advertising.filtroEdad.split("-")
+    @sel_min = edades[0].to_i
+    @sel_max = edades[1].to_i
+  end
+
+  def actualizar
+    @advertising = Advertising.find(params[:id])
+    @advertising.idCategoria = params[:Categoria][:idcategoria]
+    @advertising.filtroEdad = "#{params[:advertising][:min]}-#{params[:advertising][:max]}"
+
+    if @advertising.update_attributes(advertising_params)
+      flash[:success] = "Publicidad actualizada"
+      redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
+    else
+      @user = User.find(@advertising.idUsuario)
+      @categorias = Categoria.all
+      @sel_categoria = @advertising.idCategoria
+      edades = @advertising.filtroEdad.split("-")
+      @sel_min = edades[0].to_i
+      @sel_max = edades[1].to_i
+      render 'editar'
+    end
   end
 
   def player

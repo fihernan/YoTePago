@@ -13,7 +13,9 @@
             <%= render :partial => 'advertisings/pregunta',locals: { pregunta: pregunta, f: f, q: @quiz }%>
           <% end %>
         </ol>
-        <%= f.submit 'Enviar' ,class: "btn btn-large btn-primary" %>
+        <% if current_user.idTipoUsuario == 2 %>
+            <%= f.submit 'Enviar' ,class: "btn btn-large btn-primary" %>
+        <% end %>
     <% end %>
   </div>
 </div>

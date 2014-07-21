@@ -6,6 +6,7 @@
   <span class="content"><h4>N°encuestas : <%= advertising.numEncuestas %></h4></span>
   <% if advertising.activada == 0 %>
     <%= link_to image_tag("check.png"), autorizar_user_advertising_path(current_user.id, advertising.id)%>
+    <%= link_to image_tag("edit.png"), editar_user_advertising_path(current_user.id, advertising.id)%>
   <% end %>
   <%= link_to image_tag("cancel.png"), user_advertising_path(current_user.id, advertising.id), method: :delete,
               data: { confirm: "¿Esta seguro de eliminar la publicidad?" }%>

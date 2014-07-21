@@ -1,0 +1,63 @@
+<% provide(:title, 'Publicidad') %>
+<h1>Editar Publicidad <%= @user.nombre%></h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for (@advertising), html: { multipart: true },:url => editar_user_advertising_path(current_user.idUsuario,@advertising.id) do |f| %>
+        <%= render 'shared/error_messages', object: f.object%>
+
+        <%= f.hidden_field :idUsuario, :value => @user.id %>
+
+        <%= f.label :nombre %>
+        <%= f.text_field :nombre %>
+
+        <%= f.label :alcance %>
+        <%= f.text_field :numEncuestas %>
+
+        <%= f.label :Premio %>
+        <%= f.text_field :premio %>
+
+        <%= f.label :categoria %>
+        <%= collection_select(:Categoria, :idcategoria, @categorias, :idcategoria, :nombre, options ={:prompt => "Selecciona una categoria",:selected => @sel_categoria}) %>
+
+
+        <%= f.label :Contenido %>
+        <div class="contenido">
+            <%= f.label :Youtube %>
+            <%= f.check_box :tipoContenidoYoutube %>
+
+            <%= f.label :Video %>
+            <%= f.check_box :tipoContenidoVideo %>
+        </div>
+
+        <div id="pathContenido">
+            <%= f.label :link %>
+            <%= f.text_field :pathContenidoYoutube %>
+        </div>
+
+        <div id="pathContenidoVideo">
+          <%= f.label :video %>
+          <%= f.file_field :pathContenidoVideo %>
+        </div>
+
+        <%= f.label :filtros %>
+        <div class="filtro_sexo">
+          <%= f.label :hombre %>
+          <%= f.radio_button :filtroSexo, 'M' %>
+          <%= f.label :mujer %>
+          <%= f.radio_button :filtroSexo, 'F' %>
+          <%= f.label :mixto %>
+          <%= f.radio_button :filtroSexo, "M-F" %>
+        </div>
+
+        <div class="filtro_edad">
+          <%= f.label :edad_minima %>
+          <%= f.select :min, (10..99).to_a,options ={:selected => @sel_min} %>
+
+          <%= f.label :edad_maxima %>
+          <%= f.select :max, (10..99).to_a,options ={:selected => @sel_max}%>
+        </div>
+
+        <%= f.submit 'Guardar' ,class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
