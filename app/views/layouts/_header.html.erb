@@ -1,7 +1,9 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "YoTePremio.cl", root_path, id: "logo" %>
+      <div class="logoPrincipal">
+        <%= image_tag("ytp.png")%>
+      </div>
       <nav>
         <ul class="nav pull-right">
           <% if signed_in? %>
