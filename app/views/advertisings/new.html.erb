@@ -57,6 +57,12 @@
           <%= f.select :max, (10..99).to_a %>
         </div>
 
+        <%= f.label :nivel_educacional %>
+        <%= f.select(:idFiltroEducacion, @educacion.collect{|p| [ p.nombre, p.idEducacion ]},{},{ :multiple => true })%>
+
+        <%= f.label :ocupacion %>
+        <%= f.select(:idFiltroOcupacion, @ocupacion.collect{|p| [ p.nombre, p.idOcupacion ]},{},{ :multiple => true }) %>
+
         <%= f.submit 'Crear' ,class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

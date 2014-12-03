@@ -3,7 +3,6 @@
 $grayMediumLight: #eaeaea;
 
 .navbar{
-  padding-top: 25px;
   height: auto;
   .navbar-inner {
     .container{
@@ -39,9 +38,13 @@ $grayMediumLight: #eaeaea;
 }
 
 .topHeader{
-  position:absolute;
-  left: 78%;
-  top:0px;
+  position:relative;
+  background-color: #FFFFFF;
+  width: 100%;
+}
+
+.topH{
+  padding-left: 78%;
 }
 
 .btn-primary {

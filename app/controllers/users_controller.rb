@@ -54,11 +54,21 @@ class UsersController < ApplicationController
     @pais = Pais.all
     @comuna = Comuna.all
     @ciudad = Ciudad.all
+    @educacion = Educacion.all
+    @ocupacion = Ocupacion.all
     if(@user.idComuna.nil?)
     else
       @sel_pais = Comuna.find(@user.idComuna).ciudad.pais.idpais
       @sel_ciudad = Comuna.find(@user.idComuna).ciudad.idciudad
       @sel_comuna = @user.idComuna
+    end
+    if(@user.idEducacion.nil?)
+    else
+      @sel_educacion = @user.idEducacion
+    end
+    if(@user.idOcupacion.nil?)
+    else
+      @sel_ocupacion = @user.idOcupacion
     end
   end
 
@@ -77,11 +87,21 @@ class UsersController < ApplicationController
       @pais = Pais.all
       @comuna = Comuna.all
       @ciudad = Ciudad.all
+      @educacion = Educacion.all
+      @ocupacion = Ocupacion.all
       if(@user.idComuna.nil?)
       else
         @sel_pais = Comuna.find(@user.idComuna).ciudad.pais.idpais
         @sel_ciudad = Comuna.find(@user.idComuna).ciudad.idciudad
         @sel_comuna = @user.idComuna
+      end
+      if(@user.idEducacion.nil?)
+      else
+        @sel_educacion = @user.idEducacion
+      end
+      if(@user.idOcupacion.nil?)
+      else
+        @sel_ocupacion = @user.idOcupacion
       end
       render 'profile'
     end
@@ -130,9 +150,24 @@ class UsersController < ApplicationController
               end
             end
             if sexoOK
-              #Tenemos todo ok, creamos la asignacion y continuamos
-              assign = Assignation.new(:idUsuario => @user.id, :idPublicidad => a.id, :estado => 0)
-              assign.save
+              #Revisamos que calze con la educacion y ocupacion
+              educacion = false
+              FiltroEducacion.where("idPublicidad = ?", a.id).each do |x|
+                if(x.idEducacion == @user.idEducacion)
+                  educacion = true
+                end
+              end
+              ocupacion = false
+              FiltroOcupacion.where("idPublicidad = ?", a.id).each do |x|
+                if(x.idOcupacion == @user.idOcupacion)
+                  ocupacion = true
+                end
+              end
+              if educacion && ocupacion
+                #Tenemos todo ok, creamos la asignacion y continuamos
+                assign = Assignation.new(:idUsuario => @user.id, :idPublicidad => a.id, :estado => 0)
+                assign.save
+              end
             end
           end
         end
@@ -146,11 +181,21 @@ class UsersController < ApplicationController
     @pais = Pais.all
     @comuna = Comuna.all
     @ciudad = Ciudad.all
+    @educacion = Educacion.all
+    @ocupacion = Ocupacion.all
     if(@user.idComuna.nil?)
     else
       @sel_pais = Comuna.find(@user.idComuna).ciudad.pais.idpais
       @sel_ciudad = Comuna.find(@user.idComuna).ciudad.idciudad
       @sel_comuna = @user.idComuna
+    end
+    if(@user.idEducacion.nil?)
+    else
+      @sel_educacion = @user.idEducacion
+    end
+    if(@user.idOcupacion.nil?)
+    else
+      @sel_ocupacion = @user.idOcupacion
     end
   end
 
@@ -189,17 +234,29 @@ class UsersController < ApplicationController
       @pais = Pais.all
       @comuna = Comuna.all
       @ciudad = Ciudad.all
+      @educacion = Educacion.all
+      @ocupacion = Ocupacion.all
       if(@user.idComuna.nil?)
       else
         @sel_pais = Comuna.find(@user.idComuna).ciudad.pais.idpais
         @sel_ciudad = Comuna.find(@user.idComuna).ciudad.idciudad
         @sel_comuna = @user.idComuna
       end
+      if(@user.idEducacion.nil?)
+      else
+        @sel_educacion = @user.idEducacion
+      end
+      if(@user.idOcupacion.nil?)
+      else
+        @sel_ocupacion = @user.idOcupacion
+      end
       render 'edit'
       return
     end
 
     @user.idComuna = params[:Comuna][:idcomuna]
+    @user.idEducacion = params[:Educacion][:idEducacion]
+    @user.idOcupacion = params[:Ocupacion][:idOcupacion]
     @user.activada = 1
     if @user.update_attributes(user_params_edit)
       flash[:success] = "Informacion actualizada"
@@ -208,13 +265,34 @@ class UsersController < ApplicationController
       @pais = Pais.all
       @comuna = Comuna.all
       @ciudad = Ciudad.all
+      @educacion = Educacion.all
+      @ocupacion = Ocupacion.all
       if(@user.idComuna.nil?)
       else
         @sel_pais = Comuna.find(@user.idComuna).ciudad.pais.idpais
         @sel_ciudad = Comuna.find(@user.idComuna).ciudad.idciudad
         @sel_comuna = @user.idComuna
       end
+      if(@user.idEducacion.nil?)
+      else
+        @sel_educacion = @user.idEducacion
+      end
+      if(@user.idOcupacion.nil?)
+      else
+        @sel_ocupacion = @user.idOcupacion
+      end
       render 'edit'
+    end
+  end
+
+  def canjear
+    @user = User.find(params[:id])
+    @user.premio = 0;
+    if @user.save(validate: false)
+      flash[:success] = "Canje realizado!!"
+      redirect_to cuenta_user_path(@user)
+    else
+      redirect_to cuenta_user_path(@user)
     end
   end
 

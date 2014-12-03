@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar_path, AvatarUploader
 
   attr_accessible :email, :password, :password_confirmation, :celular, :idTipoUsuario, :nombre, :apellido1, :apellido2,
-                  :idComuna, :edad, :avatar_path, :fechaNacimiento, :sexo, :codigoSeguridad, :activada
+                  :idComuna, :edad, :avatar_path, :fechaNacimiento, :sexo, :codigoSeguridad, :activada, :idEducacion, :idOcupacion
   attr_accessor :genero, :codigo, :premio
 
   before_save { self.email = email.downcase }
@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   validates :nombre, presence: {message:"obligatorio"},:on => :update
   validates :apellido1, presence: {message:"obligatorio"},:on => :update
   validates :idComuna, presence: {message:"obligatorio"},:on => :update
+  validates :idEducacion, presence: {message:"obligatorio"},:on => :update
+  validates :idOcupacion, presence: {message:"obligatorio"},:on => :update
   validates :sexo, presence: {message:"obligatorio"},:on => :update
 
   def self.autenticar_por_email(email, password)

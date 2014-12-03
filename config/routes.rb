@@ -13,6 +13,7 @@ YoTePago::Application.routes.draw do
        get 'cuenta'
        get 'profile'
        patch 'profile' => "users#update_profile"
+       get 'canjear' => "users#canjear"
      end
      resources :advertisings do
        member do

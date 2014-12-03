@@ -26,6 +26,11 @@
         <td><h3 id="saldo">Saldo</h3></td>
         <td><h3 id="saldo">$<%= @user.premio%></h3></td>
       </tr>
+      <% if @user.premio > 0 %>
+          <tr>
+            <td><%= link_to image_tag("money.png"), canjear_user_path(@user)%></td>
+          </tr>
+      <% end %>
     </table>
     <p><%= link_to "Modificar Información", profile_user_path(@user) %></p>
   </aside>

@@ -24,11 +24,25 @@ class AdvertisingsController < ApplicationController
     end
 
     if @advertising.save
+      params[:advertising][:idFiltroEducacion].each do |x|
+        if x != ""
+          assign = FiltroEducacion.new(:idEducacion => x, :idPublicidad => @advertising.id)
+          assign.save
+        end
+      end
+      params[:advertising][:idFiltroOcupacion].each do |x|
+        if x != ""
+          assign = FiltroOcupacion.new(:idOcupacion => x, :idPublicidad => @advertising.id)
+          assign.save
+        end
+      end
       flash[:success] = "Publicidad creada!!!"
       redirect_to new_encuesta_user_advertising_path(current_user.idUsuario, @advertising.id)
     else
       @user = User.find(params[:advertising][:idUsuario])
       @categorias = Categoria.all
+      @educacion = Educacion.all
+      @ocupacion = Ocupacion.all
       render 'new'
     end
   end
@@ -64,6 +78,8 @@ class AdvertisingsController < ApplicationController
     @user = User.find(params[:idOwner])
     @advertising = Advertising.new
     @categorias = Categoria.all
+    @educacion = Educacion.all
+    @ocupacion = Ocupacion.all
   end
 
   def new_encuesta
@@ -140,6 +156,16 @@ class AdvertisingsController < ApplicationController
     @user = User.find(@advertising.idUsuario)
     @categorias = Categoria.all
     @sel_categoria = @advertising.idCategoria
+    @educacion = Educacion.all
+    @sel_educacion = []
+    @sel_ocupacion = []
+    Advertising.find(params[:id]).filtro_educacions.each do |x|
+      @sel_educacion.append(x.idEducacion)
+    end
+    @ocupacion = Ocupacion.all
+    Advertising.find(params[:id]).filtro_ocupacions.each do |x|
+      @sel_ocupacion.append(x.idOcupacion)
+    end
     edades = @advertising.filtroEdad.split("-")
     @sel_min = edades[0].to_i
     @sel_max = edades[1].to_i
@@ -151,6 +177,20 @@ class AdvertisingsController < ApplicationController
     @advertising.filtroEdad = "#{params[:advertising][:min]}-#{params[:advertising][:max]}"
 
     if @advertising.update_attributes(advertising_params)
+      FiltroEducacion.where("idPublicidad = ?", params[:id] ).delete_all
+      FiltroOcupacion.where("idPublicidad = ?", params[:id] ).delete_all
+      params[:advertising][:idFiltroEducacion].each do |x|
+        if x != ""
+          assign = FiltroEducacion.new(:idEducacion => x, :idPublicidad => @advertising.id)
+          assign.save
+        end
+      end
+      params[:advertising][:idFiltroOcupacion].each do |x|
+        if x != ""
+          assign = FiltroOcupacion.new(:idOcupacion => x, :idPublicidad => @advertising.id)
+          assign.save
+        end
+      end
       flash[:success] = "Publicidad actualizada"
       redirect_to user_advertisings_path(current_user.idUsuario, :idOwner => params[:advertising][:idUsuario])
     else

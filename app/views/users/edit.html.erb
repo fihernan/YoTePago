@@ -48,6 +48,16 @@
             <%= collection_select(:Comuna, :idcomuna, @comuna, :idcomuna, :nombre, options ={:prompt => "Selecciona una comuna",:selected => @sel_comuna}) %>
         </div>
 
+        <div id ="educacion">
+          <%= f.label :educacion %>
+          <%= collection_select(:Educacion, :idEducacion, @educacion, :idEducacion, :nombre, options ={:prompt => "Selecciona un nivel de educacion",:selected => @sel_educacion}) %>
+        </div>
+
+        <div id ="ocupacion">
+          <%= f.label :ocupacion %>
+          <%= collection_select(:Ocupacion, :idOcupacion, @ocupacion, :idOcupacion, :nombre, options ={:prompt => "Selecciona una ocupacion",:selected => @sel_ocupacion}) %>
+        </div>
+
         <%= f.label :password %>
         <%= f.password_field :password %>
 

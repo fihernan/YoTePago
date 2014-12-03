@@ -10,6 +10,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem "jquery-fileupload-rails"
 gem 'carrierwave'
 gem 'pony'
+gem 'barby'
 
 # Use mysql as the database for Active Record
 group :development do

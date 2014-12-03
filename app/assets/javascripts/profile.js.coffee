@@ -11,3 +11,5 @@ jQuery ->
     $('#Pais_idpais').attr("disabled", true);
     $('#Ciudad_idciudad').attr("disabled", true);
     $('#Comuna_idcomuna').attr("disabled", true);
+    $('#Educacion_idEducacion').attr("disabled", true);
+    $('#Ocupacion_idOcupacion').attr("disabled", true);
