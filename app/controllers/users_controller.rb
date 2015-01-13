@@ -285,15 +285,22 @@ class UsersController < ApplicationController
     end
   end
 
+  require 'barby/barcode/ean_13'
+  require 'barby/outputter/prawn_outputter'
+
+  include Barby
+
+  def load_outputter(outputter)
+    @loaded_outputter ||= load "barby/outputter/#{outputter}_outputter.rb"
+  end
+
   def canjear
     @user = User.find(params[:id])
-    @user.premio = 0;
-    if @user.save(validate: false)
-      flash[:success] = "Canje realizado!!"
-      redirect_to cuenta_user_path(@user)
-    else
-      redirect_to cuenta_user_path(@user)
-    end
+
+    @barcode = Barby::EAN13.new('007567816412')
+    load_outputter('prawn')
+    @outputter = PrawnOutputter.new(@barcode)
+    send_data(@outputter.to_pdf(), :filename => "codigo.pdf", :type => "application/pdf")
   end
 
   private

@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 ruby '1.9.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -11,6 +11,7 @@ gem "jquery-fileupload-rails"
 gem 'carrierwave'
 gem 'pony'
 gem 'barby'
+gem 'prawn'
 
 # Use mysql as the database for Active Record
 group :development do
